@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Filter Multi Select Plugin</title>
+</head>
+
+<body>
+  <!-- Load jQuery -->
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <!-- Load Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <!-- Load the plugin bundle. -->
+  <link rel="stylesheet" href="filter_multi_select.css" />
+  <script src="filter-multi-select-bundle.min.js"></script>
+
+
+  <br>
+  <form class="container" method="GET" id="form">
+    <div class="form-group row">
+      <label class="col-2 col-form-label" for="animals">Animals</label>
+      <div class="col-10">
+        <select multiple name="animals" id="animals" class="filter-multi-select">
+          <option value="bear">Bear</option>
+          <option value="ant">Ant</option>
+          <option value="salamander">Salamander</option>
+          <option value="owl">Owl</option>
+          <option value="frog">Frog</option>
+          <option value="shark">Shark</option>
+        </select>
+      </div>
+    </div>
+    <script>
+      // Use the plugin once the DOM has been loaded.
+      $(function () {
+        // Apply the plugin 
+        var notifications = $('#notifications');
+        $('#animals').on("optionselected", function (e) {
+          createNotification("selected", e.detail.label);
+        });
+        $('#animals').on("optiondeselected", function (e) {
+          createNotification("deselected", e.detail.label);
+        });
+        function createNotification(event, label) {
+          var n = $(document.createElement('span'))
+            .text(event + ' ' + label + "  ")
+            .addClass('notification')
+            .appendTo(notifications)
+            .fadeOut(3000, function () {
+              n.remove();
+            });
+        }
+      });
+    </script>
+</body>
+
+</html>
